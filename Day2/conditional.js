@@ -9,7 +9,8 @@ function launchBrowser(){
 }
 launchBrowser()
 
-function runTests(testType){
+let testType='sanity'
+function runTests(){
     switch(true){
         case testType=='sanity':
             console.log("sanitytesting")
@@ -24,4 +25,4 @@ function runTests(testType){
             console.log('functionality')
     }
 }
-runTests('smoke')
+runTests()
