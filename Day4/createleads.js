@@ -1,0 +1,28 @@
+import {test , expect} from '@playwright/test'
+test("save and verify", async({page})=>{
+    await page.goto("https://login.salesforce.com/")
+    //page navigation using css
+    await page.locator(`input[id='username']`).fill("udaya18udai318@agentforce.com")
+    const pagurl = page.url()
+    const pagtitle = page.title()
+    await page.locator('#password').fill("Sales@123")
+    await page.locator(`text='Remember me'`).click()
+    await page.locator(`input.button.r4.wide.primary`).click()
+    await page.waitForTimeout(500)
+    await page.locator(`[title='App Launcher']`).click()
+    await page.click(`[class="slds-button"]`)
+    await page.waitForTimeout(1000)
+    await page.getByPlaceholder("Search apps or items...").fill("sales")
+    await page.keyboard.press('Enter')
+    await page.waitForTimeout(5000)
+    await page.locator(`[title="Manage your sales process with accounts, leads, opportunities, and more"]`).click()
+    await page.getByTitle('Leads', { exact: true }).click()
+    await page.locator(`[title="New"]`).click()
+    await page.locator(`[part="input-button-value"]`).click()
+    await page.click(`[data-value="Mr."]`)
+    await page.locator(`[name="lastName"]`).fill("karan")
+    await page.locator(`[name="Company"]`).fill("nse")
+    await page.locator(`[name="SaveEdit"]`).click()
+    await page.getByTitle('Leads', { exact: true }).click()
+    await page.locator(`[text='karan']`).isVisible();
+})
