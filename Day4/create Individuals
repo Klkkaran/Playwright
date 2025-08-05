@@ -1,0 +1,23 @@
+import { test } from "@playwright/test";
+
+
+test("click dropdown", async({page})=>{
+    await page.goto("https://login.salesforce.com")
+    await page.locator(`[id='username']`).fill("udaya18udai318@agentforce.com")
+    await page.locator(`[id="password"]`).fill("Sales@123")
+    await page.click(`[id="Login"]`)
+    //await page.click(`[title="App Launcher"]`)
+    await page.locator(`.slds-icon-waffle`).click()
+    await page.locator(`[title='App Launcher']`).click()
+    await page.click(`[aria-label="View All Applications"]`)
+    await page.waitForTimeout(2000)
+    await page.locator(`//a[@data-label="Individuals"]`).click()
+    //await page.getByText('Individuals', { exact: true }).click(); 
+    //await page.getByRole('link', { name: 'Individuals' }).click();
+    await page.locator(`[data-key="chevrondown"]`).click()
+    await page.locator(`[class="forceActionLink"]`).click()
+    await page.getByPlaceholder("Last Name").fill("kumar")
+    await page.click(`[title="Save"]`)
+    await expect(page.getByText('kumar')).toBeVisible()
+
+})
