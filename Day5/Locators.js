@@ -5,11 +5,12 @@ async function loginfields(page) {
     await page.locator(`[id="password"]`).fill('crmsfa')
     await page.click(`[class="decorativeSubmit"]`) 
     await page.waitForTimeout(2000)
+    await page.getByText('CRM/SFA', { exact: true }).click();
 }
 
 test("create", async({page})=>{
     await loginfields(page)
-    await page.getByText('CRM/SFA', { exact: true }).click(); 
+    //await page.getByText('CRM/SFA', { exact: true }).click(); 
     //await page.getByRole('textbox', { name: 'Leads' }).click();
     //await page.getByLabel('Leads').click();
     await page.waitForTimeout(2000)
@@ -36,3 +37,34 @@ test("create", async({page})=>{
     await page.waitForTimeout(5000)
     await expect(page.locator(`span#viewLead_companyName_sp`)).toHaveText('lulumall')
 })
+
+test('edit a lead', async({page})=>{
+    await loginfields(page)
+    await page.waitForTimeout(2000)
+    await page.getByText('Leads', { exact: true }).click();
+    await page.getByRole('link', { name: 'Find Leads' }).click()
+    await page.locator(`//*[@id="ext-gen248"]`).fill('karan')
+    await page.getByRole('link', { name: 'Find Leads' }).nth(4).click()
+    await page.locator(`//*[@class="linktext"]`).nth(4).click()
+    await page.getByRole(`link`, { name: 'Edit' }).click()
+    const comname=await page.getByText(`Company Name`, { exact: true}).nth(2).click()
+    await comname.fill('')
+    await comname.fill('testleaf')
+    const annualpay=await page.getByText(`Annual Revenue`, { exact: true}).click()
+    await annualpay.fill('')
+    await annualpay.fill(30000)
+    const Department =await page.getByText(`Department`, { exact: true}).nth(1).click()
+    await Department.fill(``)
+    await Department.fill(mech)
+    await page.locator(`//span[@class="tableheadtext"]`).nth(15).click()
+    await page.locator(`//input[@id="ext-gen639"]`).click()
+    await expect(page.locator(`span#viewLead_companyName_sp`)).toHaveText('testleaf')
+    await expect(page.locator(`span#viewLead_annualRevenue_sp`)).toHaveText(30000)
+    await expect(page.locator(`span#viewLead_departmentName_sp`)).toHaveText('mech')
+    const pagetitle=await page.title()
+    console.log(pagetitle)
+
+
+})
+
+
