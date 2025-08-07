@@ -41,8 +41,10 @@ test("create", async({page})=>{
 test('edit a lead', async({page})=>{
     await loginfields(page)
     await page.waitForTimeout(2000)
-    await page.getByText('Leads', { exact: true }).click();
-    await page.getByRole('link', { name: 'Find Leads' }).click()
+    //await page.getByText('Leads', { exact: true }).nth(5).click();
+    await page.locator(`//*[@id="ext-gen41"]/ul/li[2]/div/div/div/div/div/a`).click()
+    //await page.getByRole('link', { name: 'Find Leads' }).click()
+    await page.getByRole(`link` , {class: 'selected'}).nth(17).click()
     await page.locator(`//*[@id="ext-gen248"]`).fill('karan')
     await page.getByRole('link', { name: 'Find Leads' }).nth(4).click()
     await page.locator(`//*[@class="linktext"]`).nth(4).click()
