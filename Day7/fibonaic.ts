@@ -1,5 +1,5 @@
 function fibonacci(n:number):number{
-    if(n==0){
+    if(n<=0){
         console.log("error")
         return 0
     }
