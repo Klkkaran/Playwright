@@ -92,7 +92,7 @@ test("sales login",async({page})=>{
     await page.getByRole(`combobox`, { name: `SLA Violation` }).click()
     await page.locator(`//span[text()='No`).click()
     await page.locator(`//button[@name="SaveEdit"]`).click()
-    await page.waitForSelector(".toastMessage", { state: "visible" });
+    await page.waitForSelector(".toastMessage", { state: "visible" })
     await page.pause() //will freeze the page
     const toastMessage = await page.locator(".toastMessage").textContent()
     console.log(toastMessage)
